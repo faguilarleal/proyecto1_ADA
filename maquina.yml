@@ -1,0 +1,647 @@
+q_states:
+  q_list:
+    - "q0"
+    - "q1"
+    - "q2"
+    - "qinit"
+    - "qread_L"
+    - "qwrite_R"
+    - "qResetup_R"
+    - "qResetup_L"
+    - "qFinish"
+    - "qReturn"
+    - "qStart"
+    - "qAnswerR"
+    - "qWrite_L"
+    - "qCopy_R"
+    - "qReturn_R"
+    - "qCopy_L"
+    - "qReturn_L"
+    - "accept"
+
+  initial: "q0"
+  final: "accept"
+alphabet:
+  - "|"
+tape_alphabet:
+  - "|"
+  - "B"
+  - "X"
+  - "$"
+  - "F"
+  - "L"
+  - "R"
+
+delta:
+  #q0
+  #Iniciar
+  - params:
+      initial_state: "q0"
+      tape_input: "|"
+    output:
+      final_state: "q0"
+      tape_output: "|"
+      tape_displacement: L
+
+  #Poner L
+  - params:
+      initial_state: "q0"
+      tape_input: "B"
+    output:
+      final_state: "q1"
+      tape_output: "L"
+      tape_displacement: R
+
+  #q1
+  - params:
+      initial_state: "q1"
+      tape_input: "L"
+    output:
+      final_state: "q1"
+      tape_output: "L"
+      tape_displacement: R
+
+  - params:
+      initial_state: "q1"
+      tape_input: "|"
+    output:
+      final_state: "q1"
+      tape_output: "|"
+      tape_displacement: R
+
+  - params:
+      initial_state: "q1"
+      tape_input: "B"
+    output:
+      final_state: "q2"
+      tape_output: "R"
+      tape_displacement: L
+
+  #q2
+  # Buscar el primer | e inicializar la cinta de respuesta
+  - params:
+      initial_state: "q2"
+      tape_input: "|"
+    output:
+      final_state: "qinit"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "q2"
+      tape_input: "L"
+    output:
+      final_state: "qResetup_L"
+      tape_output: "$"
+      tape_displacement: L
+
+  #qinit
+  # Colocar el primer F en la cinta de respuesta
+  - params:
+      initial_state: "qinit"
+      tape_input: "|"
+    output:
+      final_state: "qinit"
+      tape_output: "|"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qinit"
+      tape_input: "L"
+    output:
+      final_state: "qinit"
+      tape_output: "L"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qinit"
+      tape_input: "B"
+    output:
+      final_state: "qread_L"
+      tape_output: "F"
+      tape_displacement: R
+
+  #qread_L
+  - params:
+      initial_state: "qread_L"
+      tape_input: "L"
+    output:
+      final_state: "qread_L"
+      tape_output: "L"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qread_L"
+      tape_input: "|"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qread_L"
+      tape_input: "$"
+    output:
+      final_state: "qread_L"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qread_L"
+      tape_input: "R"
+    output:
+      final_state: "qResetup_R"
+      tape_output: "L"
+      tape_displacement: R
+
+  #qwrite_R
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "L"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "L"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "|"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "|"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "X"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "X"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "$"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "F"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "X"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qwrite_R"
+      tape_input: "B"
+    output:
+      final_state: "qResetup_L"
+      tape_output: "B"
+      tape_displacement: R
+
+  #qResetup_L
+  - params:
+      initial_state: "qResetup_L"
+      tape_input: "X"
+    output:
+      final_state: "qResetup_L"
+      tape_output: "F"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qResetup_L"
+      tape_input: "L"
+    output:
+      final_state: "qResetup_L"
+      tape_output: "L"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qResetup_L"
+      tape_input: "$"
+    output:
+      final_state: "qResetup_L"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qResetup_L"
+      tape_input: "|"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qResetup_L"
+      tape_input: "R"
+    output:
+      final_state: "qStart"
+      tape_output: "R"
+      tape_displacement: L
+
+  #qResetup_R
+  - params:
+      initial_state: "qResetup_R"
+      tape_input: "X"
+    output:
+      final_state: "qResetup_R"
+      tape_output: "F"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qResetup_R"
+      tape_input: "R"
+    output:
+      final_state: "qResetup_R"
+      tape_output: "R"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qResetup_R"
+      tape_input: "$"
+    output:
+      final_state: "qResetup_R"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qResetup_R"
+      tape_input: "L"
+    output:
+      final_state: "qFinish"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qResetup_R"
+      tape_input: "|"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "$"
+      tape_displacement: L
+
+  #qFinish
+  - params:
+      initial_state: "qFinish"
+      tape_input: "F"
+    output:
+      final_state: "qFinish"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qFinish"
+      tape_input: "L"
+    output:
+      final_state: "qFinish"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qFinish"
+      tape_input: "$"
+    output:
+      final_state: "qFinish"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qFinish"
+      tape_input: "R"
+    output:
+      final_state: "qFinish"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qFinish"
+      tape_input: "B"
+    output:
+      final_state: "accept"
+      tape_output: "B"
+      tape_displacement: R
+
+  #qStart
+  - params:
+      initial_state: "qStart"
+      tape_input: "F"
+    output:
+      final_state: "qStart"
+      tape_output: "F"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qStart"
+      tape_input: "$"
+    output:
+      final_state: "qStart"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qStart"
+      tape_input: "L"
+    output:
+      final_state: "qStart"
+      tape_output: "L"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qStart"
+      tape_input: "B"
+    output:
+      final_state: "qAnswerR"
+      tape_output: "B"
+      tape_displacement: R
+
+  #qAnswerR
+  - params:
+      initial_state: "qAnswerR"
+      tape_input: "F"
+    output:
+      final_state: "qAnswerR"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qAnswerR"
+      tape_input: "L"
+    output:
+      final_state: "qAnswerR"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qAnswerR"
+      tape_input: "$"
+    output:
+      final_state: "qAnswerR"
+      tape_output: "B"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qAnswerR"
+      tape_input: "R"
+    output:
+      final_state: "accept"
+      tape_output: "B"
+      tape_displacement: R
+
+  #qWrite_L
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "|"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "|"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "$"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "R"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "R"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "X"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "X"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "F"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "X"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qWrite_L"
+      tape_input: "B"
+    output:
+      final_state: "qResetup_R"
+      tape_output: "B"
+      tape_displacement: L
+
+  #qCopy_R
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "$"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "L"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "L"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "|"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "|"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "X"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "X"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "F"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "F"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "B"
+    output:
+      final_state: "qReturn_R"
+      tape_output: "F"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_R"
+      tape_input: "R"
+    output:
+      final_state: "qCopy_R"
+      tape_output: "R"
+      tape_displacement: L
+
+  #qReturn_R
+  - params:
+      initial_state: "qReturn_R"
+      tape_input: "R"
+    output:
+      final_state: "qReturn_R"
+      tape_output: "R"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qReturn_R"
+      tape_input: "$"
+    output:
+      final_state: "qReturn_R"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qReturn_R"
+      tape_input: "|"
+    output:
+      final_state: "qReturn_R"
+      tape_output: "|"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qReturn_R"
+      tape_input: "F"
+    output:
+      final_state: "qReturn_R"
+      tape_output: "F"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qReturn_R"
+      tape_input: "L"
+    output:
+      final_state: "qWrite_L"
+      tape_output: "L"
+      tape_displacement: R
+
+  #qCopy_L
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "$"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "$"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "L"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "L"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "|"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "|"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "R"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "R"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "F"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "F"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "X"
+    output:
+      final_state: "qCopy_L"
+      tape_output: "X"
+      tape_displacement: R
+
+  - params:
+      initial_state: "qCopy_L"
+      tape_input: "B"
+    output:
+      final_state: "qReturn_L"
+      tape_output: "F"
+      tape_displacement: L
+
+  #qReturn_L
+  - params:
+      initial_state: "qReturn_L"
+      tape_input: "R"
+    output:
+      final_state: "qReturn_L"
+      tape_output: "R"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qReturn_L"
+      tape_input: "$"
+    output:
+      final_state: "qReturn_L"
+      tape_output: "$"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qReturn_L"
+      tape_input: "|"
+    output:
+      final_state: "qReturn_L"
+      tape_output: "|"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qReturn_L"
+      tape_input: "L"
+    output:
+      final_state: "qwrite_R"
+      tape_output: "L"
+      tape_displacement: L
+
+  - params:
+      initial_state: "qReturn_L"
+      tape_input: "F"
+    output:
+      final_state: "qReturn_L"
+      tape_output: "F"
+      tape_displacement: L
+
+  #accept
+  - params:
+      initial_state: "accept"
+      tape_input: "f"
+    output:
+      final_state: "accept"
+      tape_output: "f"
+      tape_displacement: R
