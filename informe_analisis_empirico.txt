@@ -1,0 +1,36 @@
+===== ANÁLISIS EMPÍRICO DE LA MÁQUINA DE TURING PARA FIBONACCI =====
+
+a) Listado de entradas de prueba usadas para medir tiempos de ejecución:
+   1. '|' (tamaño: 1)
+   2. '||' (tamaño: 2)
+   3. '|||' (tamaño: 3)
+   4. '||||' (tamaño: 4)
+   5. '|||||' (tamaño: 5)
+   6. '||||||' (tamaño: 6)
+   7. '|||||||' (tamaño: 7)
+   8. '||||||||' (tamaño: 8)
+   9. '|||||||||' (tamaño: 9)
+   10. '||||||||||' (tamaño: 10)
+
+b) Los resultados de tiempos medidos son:
+Entrada | Tamaño | Tiempo (segundos)
+--------------------------------
+| | 1 | 0.010858
+|| | 2 | 0.009418
+||| | 3 | 0.015394
+|||| | 4 | 0.029563
+||||| | 5 | 0.053660
+|||||| | 6 | 0.102721
+||||||| | 7 | 0.193850
+|||||||| | 8 | 0.414782
+||||||||| | 9 | 0.970053
+|||||||||| | 10 | 2.419216
+
+c) Regresión que mejor se ajusta a los datos:
+El mejor modelo es: Exponencial
+Función: 0.000274e^(0.907637x) + 0.020641
+Esto sugiere una complejidad temporal exponencial O(c^n)
+
+Nota: La complejidad teórica del cálculo de Fibonacci en una Máquina de Turing
+suele ser exponencial debido a la naturaleza del problema y las limitaciones
+de una máquina de una sola cinta.
