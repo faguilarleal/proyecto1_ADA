@@ -205,8 +205,8 @@ def PrintResults(inputs, input_sizes, execution_times, regression_results):
         print(f"✓ El mejor modelo es: {best_model} con ECM = {mse_values[best_model]:.6f}")
         print("-"*50)
 
-        
-def main():
+
+def Analisis():
     """Función principal que coordina todo el análisis."""
     # Cargar la máquina de Turing
     reader = Reader("maquina.yml")
@@ -235,4 +235,4 @@ def main():
     plt.show()
 
 
-main()
+Analisis()

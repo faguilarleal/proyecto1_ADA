@@ -1,6 +1,7 @@
 from Reader import Reader
 from MT import MT
 import time 
+from analisis import Analisis
 reader = Reader("maquina.yml")
 
 
@@ -17,3 +18,5 @@ end_time = time.time()
 
 print("Tiempo de ejecución: ", end_time - start_time) 
 print("Cantidad de pasos: ", c) 
+
+Analisis()
