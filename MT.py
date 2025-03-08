@@ -1,3 +1,5 @@
+from rich import print
+
 class MT:
     def __init__(self, states, initial_state, final_state, alphabet, tape_alphabet, function):
         self.states = states #Estados
@@ -77,23 +79,25 @@ class MT:
         )
         
         # Imprime el estado actual, la cinta y la posición del cabezal
-        print(f"Estado actual: {self.currentState}")
+        print(f"[bold cyan]Estado actual[/bold cyan]: {self.currentState}")
         print(f"Cinta: {tape_visual}")
         print(f"Posición del cabezal: {self.headPosition}")
 
 
     #Simula la cadena
     def simulateMT(self):
+        cont = 0
         while True:
             self.printCurrentTape()
             if self.currentState in self.final_state and self.currentState == "reject":
-                return True
+                return True, cont
 
             if self.currentState == self.final_state:
                 result = ''.join([char for char in self.tape if char != 'B'])
-                print(f"\033[32mCinta final transformada: {result}\033[0m")
-                print(len(result))
-                return True
+                print(f"[green]Cinta final transformada: {result}[/green]")
+                print("[green]Salida de la máquina: ", len(result))
+                return True, cont
+            cont += 1
 
             if not self.moveTape():
-                return False
+                return False, cont
