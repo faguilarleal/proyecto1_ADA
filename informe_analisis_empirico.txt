@@ -15,20 +15,20 @@ a) Listado de entradas de prueba usadas para medir tiempos de ejecución:
 b) Los resultados de tiempos medidos son:
 Entrada | Tamaño | Tiempo (segundos)
 --------------------------------
-| | 1 | 0.010858
-|| | 2 | 0.009418
-||| | 3 | 0.015394
-|||| | 4 | 0.029563
-||||| | 5 | 0.053660
-|||||| | 6 | 0.102721
-||||||| | 7 | 0.193850
-|||||||| | 8 | 0.414782
-||||||||| | 9 | 0.970053
-|||||||||| | 10 | 2.419216
+| | 1 | 0.007999
+|| | 2 | 0.024991
+||| | 3 | 0.031065
+|||| | 4 | 0.069404
+||||| | 5 | 0.104516
+|||||| | 6 | 0.215222
+||||||| | 7 | 0.418638
+|||||||| | 8 | 0.912224
+||||||||| | 9 | 1.969784
+|||||||||| | 10 | 4.973794
 
 c) Regresión que mejor se ajusta a los datos:
 El mejor modelo es: Exponencial
-Función: 0.000274e^(0.907637x) + 0.020641
+Función: 0.000614e^(0.898673x) + 0.044396
 Esto sugiere una complejidad temporal exponencial O(c^n)
 
 Nota: La complejidad teórica del cálculo de Fibonacci en una Máquina de Turing
